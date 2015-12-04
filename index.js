@@ -28,7 +28,7 @@ howCanWeSleepWhileOurBedsAreBurning.read = function (path) {
   return rs
 }
 
-howCanWeSleepWhileOurBedsAreBurning.scssFile = function (path) {
+howCanWeSleepWhileOurBedsAreBurning.write = function (path) {
   let scssFile = fs.createWriteStream(path)
   return scssFile
 }
