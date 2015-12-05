@@ -4,6 +4,11 @@
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+## Install
+```
+npm install --save drupal-breakpoints-scss
+```
+
 ## Usage
 ```javascript
 const drupalBreakpoints = require('drupal-breakpoints-scss')
