@@ -16,3 +16,17 @@ const drupalBreakpoints = require('drupal-breakpoints-scss')
 drupalBreakpoints.read('./theme.breakpoints.yml')
   .pipe(drupalBreakpoints.write('./scss/_breakpoints.scss'))
 ```
+
+## Usage with gulp
+```javascript
+const gulp = require('gulp')
+const rename = require('gulp-rename')
+const drupalBreakpoints = require('drupal-breakpoints-scss')
+
+gulp.task('task', function () {
+  return gulp.src('./breakpoints.yml')
+    .pipe(drupalBreakpoints.ymlToScss())
+    .pipe(rename('_breakpoints.scss'))
+    .pipe(gulp.dest('./scss'))
+})
+```
