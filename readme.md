@@ -9,6 +9,29 @@
 npm install --save drupal-breakpoints-scss
 ```
 
+## What it does
+Converts this:
+```yml
+theme.small:
+  label: breakpoint-small
+  mediaQuery: 'all and (max-width: 500px)'
+  weight: 1
+  multipliers:
+    - 1x
+
+theme.medium:
+  label: breakpoint-medium
+  mediaQuery: 'all and (max-width: 700px)'
+  weight: 1
+  multipliers:
+    - 1x
+```
+into this:
+```scss
+$breakpoint-small: all and (max-width: 500px);
+$breakpoint-medium: all and (max-width: 700px);
+```
+
 ## Usage
 ```javascript
 const drupalBreakpoints = require('drupal-breakpoints-scss')
