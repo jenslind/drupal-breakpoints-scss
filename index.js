@@ -11,7 +11,7 @@ function jsonToScssVars (obj) {
   let scssVars = ''
 
   for (let i in obj) {
-    scssVars += '$' + obj[i].label + ': ' + obj[i].mediaQuery + ';\n'
+    scssVars += '$' + obj[i].label + ': \'' + obj[i].mediaQuery + '\';\n'
   }
 
   return scssVars
