@@ -30,17 +30,34 @@ into this:
 ```scss
 $breakpoint-small: all and (max-width: 500px);
 $breakpoint-medium: all and (max-width: 700px);
+
+// Or..
+
+$drupal-breakpoints: (
+  breakpoint-small: 'all and (max-width: 500px)',
+  breakpoint-medium: 'all and (max-width: 700px)',
+);
 ```
 
 ## Usage
 ```javascript
 const drupalBreakpoints = require('drupal-breakpoints-scss')
 
-drupalBreakpoints.read('./theme.breakpoints.yml')
+drupalBreakpoints.read('./theme.breakpoints.yml', opts)
   .pipe(drupalBreakpoints.write('./scss/_breakpoints.scss'))
 ```
 
-## Usage with gulp
+### Options
+```javascript
+var defaultOpts = {
+  vars: true,  // Output breakpoints as vars
+  map: false, // Output as a sass map
+  mapName: 'drupal-breakpoints', // Name of the map
+  varsPrefix: '' // Prefix vars
+}
+```
+
+### Usage with gulp
 ```javascript
 const gulp = require('gulp')
 const rename = require('gulp-rename')
@@ -48,8 +65,10 @@ const drupalBreakpoints = require('drupal-breakpoints-scss')
 
 gulp.task('task', function () {
   return gulp.src('./breakpoints.yml')
-    .pipe(drupalBreakpoints.ymlToScss())
+    .pipe(drupalBreakpoints.ymlToScss(opts))
     .pipe(rename('_breakpoints.scss'))
     .pipe(gulp.dest('./scss'))
 })
 ```
+
+### [Webpack](https://www.npmjs.com/package/@oddhill/drupal-breakpoints-scss-webpack-plugin)
