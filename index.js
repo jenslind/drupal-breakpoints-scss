@@ -1,16 +1,15 @@
 'use strict'
-const YAML = require('yamljs')
-const fs = require('fs')
-const stream = require('stream')
-const through = require('through2')
+var YAML = require('yamljs')
+var fs = require('fs')
+var stream = require('stream')
+var through = require('through2')
 
-// Midnight oil <3
-const howCanWeSleepWhileOurBedsAreBurning = {}
+var drupalBreakpointsScss = {}
 
 function jsonToScssVars (obj, varPrefix) {
-  let scssVars = ''
+  var scssVars = ''
 
-  for (let i in obj) {
+  for (var i in obj) {
     scssVars += '$' + varPrefix + obj[i].label + ': \'' + obj[i].mediaQuery + '\';\n'
   }
 
@@ -18,9 +17,9 @@ function jsonToScssVars (obj, varPrefix) {
 }
 
 function jsonToScssMap (obj, mapName) {
-  let scssMap = '$' + mapName + ': (\n'
+  var scssMap = '$' + mapName + ': (\n'
 
-  for (let i in obj) {
+  for (var i in obj) {
     scssMap += '  ' + obj[i].label + ': \'' + obj[i].mediaQuery + '\',\n'
   }
 
@@ -29,9 +28,9 @@ function jsonToScssMap (obj, mapName) {
   return scssMap
 }
 
-howCanWeSleepWhileOurBedsAreBurning.read = function (path) {
-  let rs = stream.Readable()
-  let breakpoints = YAML.load(path)
+drupalBreakpointsScss.read = function (path) {
+  var rs = stream.Readable()
+  var breakpoints = YAML.load(path)
 
   rs._read = function () {
     rs.push(jsonToScssVars(breakpoints))
@@ -41,12 +40,12 @@ howCanWeSleepWhileOurBedsAreBurning.read = function (path) {
   return rs
 }
 
-howCanWeSleepWhileOurBedsAreBurning.write = function (path) {
-  let scssFile = fs.createWriteStream(path)
+drupalBreakpointsScss.write = function (path) {
+  var scssFile = fs.createWriteStream(path)
   return scssFile
 }
 
-howCanWeSleepWhileOurBedsAreBurning.ymlToScss = function (varPrefix = '', mapName = 'drupal-breakpoints') {
+drupalBreakpointsScss.ymlToScss = function (varPrefix = '', mapName = 'drupal-breakpoints') {
   return through.obj(function (file, enc, cb) {
     var content = file.contents.toString('utf8')
     var parsedYaml = YAML.parse(content)
@@ -55,4 +54,4 @@ howCanWeSleepWhileOurBedsAreBurning.ymlToScss = function (varPrefix = '', mapNam
   })
 }
 
-module.exports = howCanWeSleepWhileOurBedsAreBurning
+module.exports = drupalBreakpointsScss
