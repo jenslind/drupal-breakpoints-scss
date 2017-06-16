@@ -7,18 +7,26 @@ const through = require('through2')
 // Midnight oil <3
 const howCanWeSleepWhileOurBedsAreBurning = {}
 
-function jsonToScssVars (obj, varPrefix, mapName) {
+function jsonToScssVars (obj, varPrefix) {
   let scssVars = ''
-  let scssMap = '$' + mapName + ': (\n'
 
   for (let i in obj) {
     scssVars += '$' + varPrefix + obj[i].label + ': \'' + obj[i].mediaQuery + '\';\n'
+  }
+
+  return scssVars
+}
+
+function jsonToScssMap (obj, mapName) {
+  let scssMap = '$' + mapName + ': (\n'
+
+  for (let i in obj) {
     scssMap += '  ' + obj[i].label + ': \'' + obj[i].mediaQuery + '\',\n'
   }
 
   scssMap += ');'
 
-  return scssVars + '\n' + scssMap
+  return scssMap
 }
 
 howCanWeSleepWhileOurBedsAreBurning.read = function (path) {
@@ -38,11 +46,11 @@ howCanWeSleepWhileOurBedsAreBurning.write = function (path) {
   return scssFile
 }
 
-howCanWeSleepWhileOurBedsAreBurning.ymlToScss = function (varPrefix = '', mapName = 'breakpoints') {
+howCanWeSleepWhileOurBedsAreBurning.ymlToScss = function (varPrefix = '', mapName = 'drupal-breakpoints') {
   return through.obj(function (file, enc, cb) {
     var content = file.contents.toString('utf8')
     var parsedYaml = YAML.parse(content)
-    file.contents = new Buffer(String(jsonToScssVars(parsedYaml, varPrefix, mapName)))
+    file.contents = new Buffer(String(jsonToScssVars(parsedYaml, varPrefix) + '\n' + jsonToScssMap(parsedYaml, mapName)))
     cb(null, file)
   })
 }
