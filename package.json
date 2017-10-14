@@ -22,5 +22,8 @@
   "dependencies": {
     "through2": "^2.0.0",
     "yamljs": "^0.2.4"
+  },
+  "engines" : {
+    "node": ">=6.0.0"
   }
 }
