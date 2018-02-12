@@ -2,6 +2,8 @@
 
 > Convert Drupal 8:s breakpoints (`*.breakpoints.yml`) to scss `$variables`.
 
+Read more about this in related tutorial - [Sharing Breakpoints Between Drupal 8 and Sass](https://www.lullabot.com/articles/sharing-breakpoints-between-drupal-8-and-sass).
+
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ## Install
